@@ -3,7 +3,7 @@ using SwinGameSDK;
 
 #if DEBUG
 using NUnit.Framework;
-#endif 
+#endif
 
 
 namespace CardGames.GameLogic
@@ -34,9 +34,9 @@ namespace CardGames.GameLogic
 		/// <summary>
 		/// Create a new game of Snap!
 		/// </summary>
-		public Snap ()
+		public Snap()
 		{
-			_deck = new Deck ();
+			_deck = new Deck();
 		}
 
 		/// <summary>
@@ -47,7 +47,7 @@ namespace CardGames.GameLogic
 		{
 			get
 			{
-				return _topCards [1];
+				return _topCards[1];
 			}
 		}
 
@@ -86,22 +86,22 @@ namespace CardGames.GameLogic
 		/// </summary>
 		public void Start()
 		{
-			if ( ! IsStarted )			// only start if not already started!
+			if (!IsStarted)         // only start if not already started!
 			{
 				_started = true;
-				_deck.Shuffle ();		// Return the cards and shuffle
+				_deck.Shuffle();        // Return the cards and shuffle
 
-				FlipNextCard ();		// Flip the first card...
+				FlipNextCard();     // Flip the first card...
 			}
 		}
-			
+
 		public void FlipNextCard()
 		{
-			if (_deck.CardsRemaining > 0)			// have cards...
+			if (_deck.CardsRemaining > 0)           // have cards...
 			{
-				_topCards [0] = _topCards [1];		// move top to card 2
-				_topCards [1] = _deck.Draw ();		// get a new top card
-				_topCards[1].TurnOver();			// reveal card
+				_topCards[0] = _topCards[1];        // move top to card 2
+				_topCards[1] = _deck.Draw();        // get a new top card
+				_topCards[1].TurnOver();            // reveal card
 			}
 		}
 
@@ -120,8 +120,8 @@ namespace CardGames.GameLogic
 		/// <value>The score.</value>
 		public int Score(int idx)
 		{
-			if ( idx >= 0 && idx < _score.Length )
-				return _score[idx]; 
+			if (idx >= 0 && idx < _score.Length)
+				return _score[idx];
 			else
 				return 0;
 		}
@@ -130,23 +130,26 @@ namespace CardGames.GameLogic
 		/// The player hit the top of the cards "snap"! :)
 		/// Check if the top two cards' ranks match.
 		/// </summary>
-		public void PlayerHit (int player)
+		public void PlayerHit(int player)
 		{
 			//TODO: consider deducting score for miss hits???
-			if ( player >= 0 && player < _score.Length &&  	// its a valid player
-				 IsStarted && 								// and the game is started
-				 _topCards [0] != null && _topCards [0].Rank == _topCards [1].Rank) // and its a match
+			if (player >= 0 && player < _score.Length &&    // its a valid player
+				 IsStarted &&                               // and the game is started
+				 _topCards[0] != null && _topCards[0].Rank == _topCards[1].Rank) // and its a match
 			{
 				_score[player]++;
 				//TODO: consider playing a sound here...
 			}
-
+			else if (player >= 0 && player < _score.Length)
+			{
+				_score[player]--;
+			}
 			// stop the game...
 			_started = false;
 		}
-	
+
 		#region Snap Game Unit Tests
-		#if DEBUG
+#if DEBUG
 
 		public class SnapTests
 		{
@@ -174,7 +177,7 @@ namespace CardGames.GameLogic
 			}
 		}
 
-		#endif 
+#endif
 		#endregion
 	}
 }
