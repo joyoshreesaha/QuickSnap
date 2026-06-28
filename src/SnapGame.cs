@@ -10,9 +10,7 @@ namespace CardGames
         {
             Bitmap cards;
             cards = SwinGame.LoadBitmapNamed ("Cards", "Cards.png");
-            SwinGame.BitmapSetCellDetails (cards, 167, 250, 13, 5, 53);
-			
-			SwinGame.LoadFontNamed ("GameFont", " ChunkFive-Regular.otf", 12);      
+            SwinGame.BitmapSetCellDetails (cards, 82, 110, 13, 5, 53);      // set the cells in the bitmap to match the cards
         }
 
 		/// <summary>
@@ -24,9 +22,9 @@ namespace CardGames
 			//Fetch the next batch of UI interaction
 			SwinGame.ProcessEvents();
 
-			if (SwinGame.KeyTyped (KeyCode.vk_SPACE))
+			if (SwinGame.KeyTyped(KeyCode.vk_SPACE))
 			{
-				myGame.Start ();
+				myGame.FlipNextCard ();
 			}
 		}
 
@@ -42,19 +40,18 @@ namespace CardGames
 			Card top = myGame.TopCard;
 			if (top != null)
 			{
-				
-				SwinGame.DrawText ("Top Card is " + top.ToString (),Color.RoyalBlue,"GameFont", 0, 20);
-				SwinGame.DrawText ("Player 1 score: " + myGame.Score(0), Color.RoyalBlue, "GameFont", 0, 30);
-                SwinGame.DrawText ("Player 2 score: " + myGame.Score(1), Color.RoyalBlue, "GameFont", 0, 40);
-				SwinGame.DrawCell (SwinGame.BitmapNamed("Cards"), top.CardIndex, 521, 153);
+				SwinGame.DrawText ("Top Card is " + top.ToString (), Color.RoyalBlue, 0, 20);
+				SwinGame.DrawText ("Player 1 score: " + myGame.Score(0), Color.RoyalBlue, 0, 30);
+				SwinGame.DrawText ("Player 2 score: " + myGame.Score(1), Color.RoyalBlue, 0, 40);
+				SwinGame.DrawCell (SwinGame.BitmapNamed ("Cards"), top.CardIndex, 350, 50);
 			}
 			else
 			{
-				SwinGame.DrawText ("No card played yet...", Color.RoyalBlue, 0, 20);
+				SwinGame.DrawText("No card played yet...", Color.RoyalBlue, 0, 20);
 			}
 
 			// Draw the back of the cards... to represent the deck
-			SwinGame.DrawCell (SwinGame.BitmapNamed ("Cards"),52, 155, 153);
+			SwinGame.DrawCell (SwinGame.BitmapNamed ("Cards"), 52, 160, 50);
 
 			//Draw onto the screen
 			SwinGame.RefreshScreen(60);
@@ -69,24 +66,24 @@ namespace CardGames
 			myGame.Update(); // just ask the game to do this...
 		}
 
-        public static void Main()
-        {
-            //Open the game window
-            SwinGame.OpenGraphicsWindow("Snap!", 860, 500);
+		public static void Main()
+		{
+			//Open the game window
+			SwinGame.OpenGraphicsWindow("Snap!", 860, 500);
 
 			//Load the card images and set their cell details
-            LoadResources();
-            
-			// Create the game!
-			Snap myGame = new Snap ();
+			LoadResources();
 
-            //Run the game loop
-            while(false == SwinGame.WindowCloseRequested())
-            {
-				HandleUserInput (myGame);
-				DrawGame (myGame);
-				UpdateGame (myGame);
-            }
-        }
-    }
+			// Create the game!
+			Snap myGame = new Snap();
+
+			//Run the game loop
+			while (false == SwinGame.WindowCloseRequested())
+			{
+				HandleUserInput(myGame);
+				DrawGame(myGame);
+				UpdateGame(myGame);
+			}
+		}
+	}
 }
