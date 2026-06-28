@@ -36,8 +36,8 @@ namespace CardGames.GameLogic
 		/// </summary>
 		public Snap()
 		{
-		_deck = new Deck();
-		_gameTimer = SwinGame.CreateTimer();
+			_deck = new Deck();
+			_gameTimer = SwinGame.CreateTimer();
 		}
 
 		/// <summary>
@@ -116,7 +116,7 @@ namespace CardGames.GameLogic
 			//TODO: implement update to automatically slip cards!
 			if (_gameTimer.Ticks > _flipTime)
 			{
-				_gameTimer.Reset ();
+				_gameTimer.Reset();
 
 				FlipNextCard();     // Flip the first card...
 				_gameTimer.Start();
@@ -154,7 +154,7 @@ namespace CardGames.GameLogic
 			}
 			// stop the game...
 			_started = false;
-			_gameTimer.Stop ();
+			_gameTimer.Stop();
 		}
 
 		#region Snap Game Unit Tests
@@ -189,5 +189,14 @@ namespace CardGames.GameLogic
 #endif
 		#endregion
 	}
-}
+	public int Score(int player)
+		{
+			if (player >= 0 && player < _score.Length)
+			{
+				return _score[player];
+			}
+			return 0;
+		}
+
+	}
 
